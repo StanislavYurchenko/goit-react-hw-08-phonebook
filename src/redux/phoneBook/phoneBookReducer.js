@@ -1,17 +1,13 @@
-import { createReducer, combineReducers, createSlice } from '@reduxjs/toolkit';
+import { createReducer, combineReducers } from '@reduxjs/toolkit';
 import * as actions from './phoneBookActions';
-import {
-  addContact,
-  removeContact,
-  fetchContacts,
-} from './phoneBookOperations';
+import { addContact, deleteContact, getContacts } from './phoneBookOperations';
 
 const contactsReducer = createReducer([], {
-  [removeContact.fulfilled]: (state, { payload }) =>
+  [deleteContact.fulfilled]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 
   [addContact.fulfilled]: (state, { payload }) => [...state, payload],
-  [fetchContacts.fulfilled]: (_, { payload }) => payload,
+  [getContacts.fulfilled]: (_, { payload }) => payload,
 });
 
 const filterReducer = createReducer('', {
@@ -22,19 +18,21 @@ const loadingReducer = createReducer(false, {
   [addContact.pending]: () => true,
   [addContact.fulfilled]: () => false,
   [addContact.rejected]: () => false,
-  [removeContact.pending]: () => true,
-  [removeContact.fulfilled]: () => false,
-  [removeContact.rejected]: () => false,
-  [fetchContacts.pending]: () => true,
-  [fetchContacts.fulfilled]: () => false,
-  [fetchContacts.rejected]: () => false,
+  [deleteContact.pending]: () => true,
+  [deleteContact.fulfilled]: () => false,
+  [deleteContact.rejected]: () => false,
+  [getContacts.pending]: () => true,
+  [getContacts.fulfilled]: () => false,
+  [getContacts.rejected]: () => false,
 });
 
 const errorReducer = createReducer(null, {
-  [fetchContacts.rejected]: (_, { payload }) => payload,
-  [fetchContacts.pending]: () => null,
-  [removeContact.rejected]: (_, { payload }) => payload,
-  [removeContact.pending]: () => null,
+  [addContact.rejected]: (_, { payload }) => payload,
+  [addContact.pending]: () => null,
+  [deleteContact.rejected]: (_, { payload }) => payload,
+  [deleteContact.pending]: () => null,
+  [getContacts.rejected]: (_, { payload }) => payload,
+  [getContacts.pending]: () => null,
 });
 
 export default combineReducers({

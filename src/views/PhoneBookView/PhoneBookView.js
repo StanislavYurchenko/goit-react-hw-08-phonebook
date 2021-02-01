@@ -1,18 +1,27 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { getContacts } from 'redux/phoneBook/phoneBookSelectors';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import { phoneBookSelectors, phoneBookOperations } from 'redux/phoneBook';
+
 import ContactForm from 'components/ContactForm/ContactForm';
-import Filter from 'components/Filter/Filter';
 import ContactList from 'components/ContactList/ContactList';
+import Container from 'components/Container/Container';
+import Filter from 'components/Filter/Filter';
+
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './PhoneBookView.module.css';
 
 function PhoneBook() {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(phoneBookSelectors.getContacts);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(phoneBookOperations.getContacts());
+  }, []); // eslint-disable-line
 
   return (
-    <div className={styles.container}>
+    <Container>
       <h1 className={styles.title}>Phone book</h1>
       <ContactForm />
 
@@ -23,9 +32,8 @@ function PhoneBook() {
           <ContactList />
         </>
       )}
-
       <ToastContainer autoClose={2000} />
-    </div>
+    </Container>
   );
 }
 

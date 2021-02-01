@@ -1,14 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as phoneBookApi from 'api/phoneBookApi';
-
-axios.defaults.baseURL = 'http://localhost:3003';
 
 export const addContact = createAsyncThunk(
   'phoneBook/addContact',
-  async (contact, { rejectWithValue }) => {
+  async ({ contact }, { rejectWithValue }) => {
     try {
-      const responseContact = await phoneBookApi.addContactsApi(contact);
+      const responseContact = await phoneBookApi.addContact(contact);
       return responseContact;
     } catch (error) {
       return rejectWithValue(error);
@@ -16,11 +13,11 @@ export const addContact = createAsyncThunk(
   },
 );
 
-export const removeContact = createAsyncThunk(
-  'phoneBook/removeContact',
-  async (id, { rejectWithValue }) => {
+export const deleteContact = createAsyncThunk(
+  'phoneBook/deleteContact',
+  async ({ id }, { rejectWithValue }) => {
     try {
-      await phoneBookApi.deleteContactsByIdApi(id);
+      await phoneBookApi.deleteContact(id);
       return id;
     } catch (error) {
       return rejectWithValue(error);
@@ -28,14 +25,26 @@ export const removeContact = createAsyncThunk(
   },
 );
 
-export const fetchContacts = createAsyncThunk(
-  'phoneBook/fetchContacts',
+export const getContacts = createAsyncThunk(
+  'phoneBook/getContacts',
   async (_, { rejectWithValue }) => {
     try {
-      const books = await phoneBookApi.getContactsApi();
+      const books = await phoneBookApi.getContacts();
       return books;
     } catch (error) {
       return rejectWithValue(error);
     }
   },
 );
+
+// export const patchContact = createAsyncThunk(
+//   'phoneBook/patchContacts',
+//   async ({ id, contact }, { rejectWithValue }) => {
+//     try {
+//       const books = await phoneBookApi.patchContact(id, contact);
+//       return books;
+//     } catch (error) {
+//       return rejectWithValue(error);
+//     }
+//   },
+// );

@@ -42,7 +42,8 @@ function ContactForm() {
     if (!normalizedName) {
       return toast.error('Enter contact name');
     }
-    dispatch(phoneBookOperations.addContact({ name: normalizedName, number }));
+    const contact = { name: normalizedName, number };
+    dispatch(phoneBookOperations.addContact({ contact }));
     reset();
   };
 

@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import phoneBookReducer from './phoneBook/phoneBookReducer';
+import authReducer from './auth/authReducer';
 import {
   persistReducer,
   persistStore,
@@ -16,7 +17,13 @@ import logger from 'redux-logger';
 const contactsPersistConfig = {
   key: 'contacts',
   storage,
-  blacklist: ['filter'],
+  whitelist: [],
+};
+
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
 };
 
 const middleware =
@@ -34,6 +41,7 @@ const middleware =
 const store = configureStore({
   reducer: {
     phoneBook: persistReducer(contactsPersistConfig, phoneBookReducer),
+    auth: persistReducer(authPersistConfig, authReducer),
   },
   devTools: process.env.NODE_ENV === 'development',
   middleware,

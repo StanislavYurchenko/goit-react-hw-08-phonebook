@@ -16,7 +16,9 @@ function ContactListItem({ contact }) {
 
       <button
         className={styles['remove-btn']}
-        onClick={() => dispatch(phoneBookOperations.removeContact(contact.id))}
+        onClick={() =>
+          dispatch(phoneBookOperations.deleteContact({ id: contact.id }))
+        }
       >
         Delete
       </button>
@@ -24,12 +26,12 @@ function ContactListItem({ contact }) {
   );
 }
 
-ContactListItem.propTypes = {
-  contact: PropTypes.exact({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string,
-  }),
-};
+// ContactListItem.propTypes = {
+//   contact: PropTypes.exact({
+//     id: PropTypes.number.isRequired,
+//     name: PropTypes.string.isRequired,
+//     number: PropTypes.string,
+//   }),
+// };
 
 export default ContactListItem;
