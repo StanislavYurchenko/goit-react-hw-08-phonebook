@@ -70,24 +70,3 @@ function App() {
 }
 
 export default App;
-
-//  <Route exact path="/">
-//       <HomeView />
-//     </Route>
-
-//     <Route path="/phone-book">
-//       <PhoneBookView />
-//     </Route>
-
-//     <Route path="/login">
-//       <LoginView />
-//     </Route>
-//     <Route path="/signup">
-//       <SignupView />
-//     </Route>
-//     <Route path="/logout">
-//       <LogoutView />
-//     </Route>
-//     <Route>
-//       <div>not found</div>
-//     </Route>
