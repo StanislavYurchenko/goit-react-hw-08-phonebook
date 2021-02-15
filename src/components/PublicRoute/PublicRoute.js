@@ -7,7 +7,7 @@ function PublicRoute({ children, redirectTo, restricted, ...routeProps }) {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
 
   return (
-    <Route>
+    <Route {...routeProps}>
       {isLoggedIn && restricted ? <Redirect to={redirectTo} /> : children}
     </Route>
   );
