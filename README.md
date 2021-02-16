@@ -14,7 +14,7 @@ Learning React, React-Routing, Redux, CRUD..
 ### Technologies used:
 
 - React
-- Redax
+- Redux
 - React-Routes
 - HTML5
 - CSS3
